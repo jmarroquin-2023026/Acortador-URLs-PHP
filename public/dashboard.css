@@ -1,0 +1,92 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+}
+
+input, button {
+    padding: 8px;
+    margin: 5px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #d1ffae;
+}
+
+tr:hover {
+    background-color: #f9f9f9;
+}
+
+
+input[readonly] {
+    border: none;
+    background: transparent;
+    outline: none;
+    box-shadow: none;
+    cursor: pointer;
+}
+
+
+input:not([readonly]) {
+    border: 1px solid #ccc;
+    background: #fff;
+    padding: 4px 6px;
+    border-radius: 4px;
+}
+
+
+input:not([readonly]):focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+a{
+    width: 50px;
+}
+
+.input-text{
+    width: 350px;
+}
+
+.button-action{
+    border-radius: 5%;
+    width: 100px;
+    height: 40px;
+    border-style: none;
+}
+
+.link{
+    width: 150px;
+}
+
+/* Contenedor del link + botón */
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+
+.actions .link {
+    display: inline-block;
+    width: 300px;        
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.actions .button-action {
+    flex-shrink: 0;
+}

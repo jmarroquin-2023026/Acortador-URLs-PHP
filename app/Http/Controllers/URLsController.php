@@ -8,16 +8,17 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 
+
 class URLsController extends Controller
 {
      public function index()
     {
        $urls = Urls::all();
         if($urls->isEmpty()){
-            return response()->json(['message'=>'Urls not founds'],404);
+            return response()->back()->with('error','Urls not founds',404);
         };
 
-        return response()->json(['data'=>$urls],200);
+        return response()->back()->with('success','URL created successfully',200);
         
     }
 
@@ -30,7 +31,7 @@ class URLsController extends Controller
          ]);
 
          if($validator->fails()){
-             return response()->json(['message'=>'All fields should be completed'],400);
+             return redirect()->back()->with('error','All fields should be completed',400);
          }
 
          $url= Urls::create([
@@ -39,15 +40,13 @@ class URLsController extends Controller
          ]);
 
          if(!$url){
-            return response()->json(['message'=>'Error creating register'],400);
+            return redirect()->back()->withc('error','Error creating register',400);
          }
 
-        return response()->json([
-            'message'=>'url saved succesfully',
-            'data'=>$url,
-            'NewUrl'=>"http://localhost:8000/api/$code"
+        return redirect()->back()->with(
+            'success','url saved succesfully'
             
-        ],200);
+        ,200);
 
     }
 
@@ -73,7 +72,7 @@ class URLsController extends Controller
         $code = Str::random(6);
 
         if(!$url){
-            return response()->json(['message'=>'url not found'],404);
+            return redirect()->back()->with('error','url not found',404);
         }
 
         $validator= Validator::make($request->all(),[
@@ -81,7 +80,7 @@ class URLsController extends Controller
         ]);
 
         if($validator->fails()){
-             return response()->json(['message'=>'All fields should be completed'],400);
+             return redirect()->back()->with('error','All fields should be completed',400);
         }
 
         $url->original_url=$request->original_url;
@@ -89,10 +88,10 @@ class URLsController extends Controller
 
         $url->save();
 
-        return response()->json([
-        'message' => 'URL updated successfully',
-        'data' => $url,
-    ], 200);
+        return redirect()->back()->with(
+            'success','url updated succesfully'
+            
+        ,200);
         
     }
 
@@ -101,14 +100,15 @@ class URLsController extends Controller
         $url = Urls::find($id);
         
         if(!$url){
-            return response()->json(['message'=>'url not found'],404);
+            return redirect()->back()->with('error','url not found',404);
         }
 
         $url->delete();
 
-        return response()->json([
-            'message'=>'url found and deleted successfully',
-        ],200);
+         return redirect()->back()->with(
+            'success','url deleted succesfully'
+            
+        ,200);
     }
 
     public function redirect($shorten_url){
@@ -120,4 +120,11 @@ class URLsController extends Controller
 
         return redirect()->away($url->original_url,302);
     }
+
+    public function dashboard()
+{
+    $urls = Urls::all();
+    return view('dashboard', compact('urls'));
+}
+
 }
