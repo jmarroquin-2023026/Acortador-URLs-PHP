@@ -8,6 +8,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [URLsController::class, 'dashboard']);
+Route::get('/show/{id}',[URLsController::class,'show']);
 Route::post('/create',[URLsController::class,'store']);
 Route::put('/update/{id}',[URLsController::class, 'update']);
 Route::delete('delete/{id}',[URLsController::class,'destroy']);

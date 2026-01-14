@@ -14,8 +14,7 @@ table {
     margin-top: 20px;
 }
 
-th,
-td {
+th, td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
@@ -29,7 +28,6 @@ tr:hover {
     background-color: #f9f9f9;
 }
 
-
 input[readonly] {
     border: none;
     background: transparent;
@@ -38,7 +36,6 @@ input[readonly] {
     cursor: pointer;
 }
 
-
 input:not([readonly]) {
     border: 1px solid #ccc;
     background: #fff;
@@ -46,38 +43,27 @@ input:not([readonly]) {
     border-radius: 4px;
 }
 
-
 input:not([readonly]):focus {
     border-color: #007bff;
     outline: none;
 }
 
-a{
-    width: 50px;
-}
-
-.input-text{
+.input-text {
     width: 350px;
 }
 
-.button-action{
-    border-radius: 5%;
+.button-action {
+    border-radius: 5px;
     width: 100px;
     height: 40px;
-    border-style: none;
+    border: none;
 }
 
-.link{
-    width: 150px;
-}
-
-/* Contenedor del link + botón */
 .actions {
     display: flex;
     align-items: center;
     gap: 12px;
 }
-
 
 .actions .link {
     display: inline-block;
@@ -89,4 +75,110 @@ a{
 
 .actions .button-action {
     flex-shrink: 0;
+}
+
+.input-insert {
+    width: 300px;
+    height: 30px;
+}
+
+/* PAGINACIÓN LIMPIA */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 20px;
+}
+
+.pagination nav > div:first-child {
+    display: none !important;
+}
+
+.pagination nav > div:last-child {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination p {
+    display: none !important;
+}
+
+.pagination span[aria-hidden="true"], 
+.pagination a[rel="prev"], 
+.pagination a[rel="next"],
+.pagination span[aria-label*="Previous"],
+.pagination span[aria-label*="Next"] {
+    display: none !important;
+}
+
+.pagination li {
+    list-style: none;
+}
+
+.pagination a, .pagination span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px;
+    height: 34px;
+    padding: 0 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.pagination a:hover {
+    background-color: #f0f0f0;
+}
+
+.container{
+    display: flex;
+    margin: 0  auto;
+    padding: 2%;
+}
+
+
+h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+    border-left: 5px solid #d1ffae; 
+    padding-left: 10px;
+    margin-left: 50px;
+}
+
+
+form {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+
+.search-result {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #f0fdf4; 
+    border: 1px solid #d1ffae;
+    border-radius: 8px;
+    line-height: 1.6;
+}
+
+.search-result strong {
+    color: #2d5a27;
+    display: block;
+    margin-bottom: 5px;
+}
+
+
+.search-result a {
+    color: #007bff;
+    text-decoration: none;
+    word-break: break-all;
+}
+
+.search-result a:hover {
+    text-decoration: underline;
 }

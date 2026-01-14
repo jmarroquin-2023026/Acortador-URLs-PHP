@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    @if(session('success'))
+    @if(session('success'))  
         <div>{{session('success')}}</div>
     @endif
 
@@ -16,14 +16,43 @@
         <div>{{session('error')}}</div>
     @endif
 
+    <div class="container">
+        <h1>Acortador de URLs</h1>
+            <form action="{{ url('create') }}" method="POST">
+                @csrf
+                <input class="input-insert" type="url" name="original_url" placeholder="Ingresa la URL" required>
+                <button class="button-action" type="submit">Agregar URL</button>
+            </form>
 
-    <h1>Acortador de URLs</h1>
+        <h1>Buscar URL por ID</h1>
+        <form id="searchForm" method="GET" style="margin-bottom: 20px;">
+            <input type="number" id="searchId" placeholder="Ingresa el ID" required class="input-insert">
+            <button type="submit" class="button-action">Buscar</button>
+        </form>
 
-    <form action="{{ url('create') }}" method="POST">
-        @csrf
-        <input type="url" name="original_url" placeholder="Ingresa la URL" required>
-        <button type="submit">Agregar URL</button>
-    </form>
+       
+
+    </div>
+     @if(session('found_url'))
+            <div class="search-result">
+                <strong>URL encontrada:</strong>
+                <span><strong>ID:</strong> {{ session('found_url')->id }}</span><br>
+                <span><strong>Original:</strong> {{ session('found_url')->original_url }}</span><br>
+                <span><strong>Corta:</strong> 
+                    <a href="{{ url('api/' . session('found_url')->shorten_url) }}" target="_blank">
+                        {{ url('api/' . session('found_url')->shorten_url) }}
+                    </a>
+                </span>
+            </div>
+        @endif
+        <script>
+            const form = document.getElementById('searchForm');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const id = document.getElementById('searchId').value;
+                window.location.href = `/show/${id}`;
+            });
+        </script>
 
     <table>
         <thead>
@@ -72,6 +101,9 @@
             @endforelse
         </tbody>
     </table>
+    <div class="pagination">
+        {{$urls->links()}}
+    </div>
 </body>
 
 </html>

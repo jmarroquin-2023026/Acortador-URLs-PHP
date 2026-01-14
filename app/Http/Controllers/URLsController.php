@@ -18,7 +18,7 @@ class URLsController extends Controller
             return response()->back()->with('error','Urls not founds',404);
         };
 
-        return response()->back()->with('success','URL created successfully',200);
+        return response()->back()->with('success','URLs found successfully',200);
         
     }
 
@@ -53,15 +53,14 @@ class URLsController extends Controller
 
     public function show($id)
     {
+
         $url = Urls::find($id);
 
         if(!$url){
-            return response()->json(['message'=>'url not found'],404);
+            return redirect()->back()->with('error');
         }
-        return response()->json([
-            'message:'=>'URL found',
-            'data'=>$url,
-        ],200);
+        return redirect()->back()->with(
+            'found_url',$url);
     }
 
 
@@ -123,7 +122,7 @@ class URLsController extends Controller
 
     public function dashboard()
 {
-    $urls = Urls::all();
+    $urls = Urls::orderBy('id','asc')->paginate(10);
     return view('dashboard', compact('urls'));
 }
 
