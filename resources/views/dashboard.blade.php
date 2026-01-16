@@ -24,27 +24,15 @@
                 <button class="button-action" type="submit">Agregar URL</button>
             </form>
 
-        <h1>Buscar URL por ID</h1>
+        <h1>Buscar URL por codigo corto</h2>
         <form id="searchForm" method="GET" style="margin-bottom: 20px;">
-            <input type="number" id="searchId" placeholder="Ingresa el ID" required class="input-insert">
+            <input type="text" id="searchId" placeholder="Ingresa el ID" required class="input-insert">
             <button type="submit" class="button-action">Buscar</button>
         </form>
 
        
 
     </div>
-     @if(session('found_url'))
-            <div class="search-result">
-                <strong>URL encontrada:</strong>
-                <span><strong>ID:</strong> {{ session('found_url')->id }}</span><br>
-                <span><strong>Original:</strong> {{ session('found_url')->original_url }}</span><br>
-                <span><strong>Corta:</strong> 
-                    <a href="{{ url('api/' . session('found_url')->shorten_url) }}" target="_blank">
-                        {{ url('api/' . session('found_url')->shorten_url) }}
-                    </a>
-                </span>
-            </div>
-        @endif
         <script>
             const form = document.getElementById('searchForm');
             form.addEventListener('submit', function(e) {

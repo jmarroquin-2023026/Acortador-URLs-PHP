@@ -51,19 +51,19 @@ class URLsController extends Controller
     }
 
 
-    public function show($id)
+    public function show($shorten_url)
     {
 
-        $url = Urls::find($id);
+        $url = Urls::where('shorten_url',$shorten_url)->first();
 
         if(!$url){
-            return redirect()->back()->with('error');
+            return redirect()->back()->with('success','URL not found',404);
         }
-        return redirect()->back()->with(
-            'found_url',$url);
+        return redirect()->to(
+            $url->original_url);
     }
 
-
+ 
 
     public function update(Request $request, $id)
     {
