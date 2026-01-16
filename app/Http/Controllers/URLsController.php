@@ -120,10 +120,11 @@ class URLsController extends Controller
         return redirect()->away($url->original_url,302);
     }
 
+
     public function dashboard()
-{
-    $urls = Urls::orderBy('id','asc')->paginate(10);
-    return view('dashboard', compact('urls'));
-}
+    {
+        $urls = Urls::orderBy('id','asc')->paginate(10);
+        return view('dashboard', compact('urls'));
+    }
 
 }
