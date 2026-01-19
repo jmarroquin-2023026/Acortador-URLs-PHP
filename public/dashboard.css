@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 40px;
+    margin: 0px;
 }
 
 input, button {
@@ -11,7 +11,10 @@ input, button {
 table {
     border-collapse: collapse;
     width: 100%;
-    margin-top: 20px;
+}
+
+.table-wrapped{
+    margin: 30px 40px;
 }
 
 th, td {
@@ -21,7 +24,7 @@ th, td {
 }
 
 th {
-    background-color: #d1ffae;
+    background-color: #f1f5f9;
 }
 
 tr:hover {
@@ -53,16 +56,18 @@ input:not([readonly]):focus {
 }
 
 .button-action {
-    border-radius: 5px;
+    border-radius: 10px;
     width: 100px;
     height: 40px;
     border: none;
+    background: #4a7dec;
+    color: #000000;
 }
 
 .actions {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 15px;
 }
 
 .actions .link {
@@ -71,6 +76,7 @@ input:not([readonly]):focus {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-size: 15px;
 }
 
 .actions .button-action {
@@ -101,14 +107,6 @@ input:not([readonly]):focus {
 }
 
 .pagination p {
-    display: none !important;
-}
-
-.pagination span[aria-hidden="true"], 
-.pagination a[rel="prev"], 
-.pagination a[rel="next"],
-.pagination span[aria-label*="Previous"],
-.pagination span[aria-label*="Next"] {
     display: none !important;
 }
 
@@ -143,7 +141,7 @@ h1 {
     font-size: 24px;
     color: #333;
     margin-bottom: 15px;
-    border-left: 5px solid #d1ffae; 
+    border-left: 5px solid #556cff; 
     padding-left: 10px;
     margin-left: 50px;
 }
@@ -157,28 +155,47 @@ form {
 }
 
 
-.search-result {
-    margin-top: 15px;
-    padding: 15px;
-    background-color: #f0fdf4; 
-    border: 1px solid #d1ffae;
-    border-radius: 8px;
-    line-height: 1.6;
+.success-message{
+    background-color:#c1ffcc;
+    border-radius:10px;
+    font-family:Tahoma,Geneva,Arial,sans-serif;font-size:11px;
+    padding:10px 10px 10px 36px;
+    margin:10px
 }
 
-.search-result strong {
-    color: #2d5a27;
-    display: block;
-    margin-bottom: 5px;
+.error-message{
+    background-color:#ffb7b7;
+    border-radius:10px;
+    font-family:Tahoma,Geneva,Arial,sans-serif;font-size:11px;
+    padding:10px 10px 10px 36px;
+    margin:10px
 }
 
-
-.search-result a {
-    color: #007bff;
-    text-decoration: none;
-    word-break: break-all;
+.text-info{
+    font-weight:bold;
+    text-transform:uppercase;
 }
 
-.search-result a:hover {
-    text-decoration: underline;
+.navbar {
+    background-color: #f8fafc;
+    padding: 20px 0;
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin: 0;
+
+}
+
+.logo{
+    width: 180px;
+    height: auto;
 }
