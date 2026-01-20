@@ -24,15 +24,17 @@ class URLsController extends Controller
 
     public function store(Request $request)
     {
-
-        $code = Str::random(6);
         $validator= Validator::make($request->all(),[
             'original_url' =>'required|url'
          ]);
 
          if($validator->fails()){
-             return redirect()->back()->with('error','All fields should be completed',400);
+             return redirect()->back()->with('error','All fields should be completed');
          }
+
+        do{
+            $code = Str::random(6);
+        }while(Urls::where('shorten_url',$code)->exists());
 
          $url= Urls::create([
             'original_url'=>$request->original_url,
@@ -40,13 +42,11 @@ class URLsController extends Controller
          ]);
 
          if(!$url){
-            return redirect()->back()->withc('error','Error creating register',400);
+            return redirect()->back()->with('error','Error creating register');
          }
 
         return redirect()->back()->with(
-            'success','url saved succesfully'
-            
-        ,200);
+            'success','url saved succesfully');
 
     }
 
@@ -57,7 +57,7 @@ class URLsController extends Controller
         $url = Urls::where('shorten_url',$shorten_url)->first();
 
         if(!$url){
-            return redirect()->back()->with('success','URL not found',404);
+            return redirect()->back()->with('error','URL not found');
         }
         return redirect()->to(
             $url->original_url);
@@ -68,10 +68,9 @@ class URLsController extends Controller
     public function update(Request $request, $id)
     {
         $url = Urls::find($id);
-        $code = Str::random(6);
 
         if(!$url){
-            return redirect()->back()->with('error','url not found',404);
+            return redirect()->back()->with('error','url not found');
         }
 
         $validator= Validator::make($request->all(),[
@@ -79,8 +78,13 @@ class URLsController extends Controller
         ]);
 
         if($validator->fails()){
-             return redirect()->back()->with('error','All fields should be completed',400);
+             return redirect()->back()->with('error','All fields should be completed');
         }
+
+        do{
+            $code = Str::random(6);
+        }while(Urls::where('shorten_url',$code)->exists());
+
 
         $url->original_url=$request->original_url;
         $url->shorten_url=$code;
@@ -88,9 +92,7 @@ class URLsController extends Controller
         $url->save();
 
         return redirect()->back()->with(
-            'success','url updated succesfully'
-            
-        ,200);
+            'success','url updated succesfully');
         
     }
 
@@ -99,22 +101,20 @@ class URLsController extends Controller
         $url = Urls::find($id);
         
         if(!$url){
-            return redirect()->back()->with('error','url not found',404);
+            return redirect()->back()->with('error','url not found');
         }
 
         $url->delete();
 
          return redirect()->back()->with(
-            'success','url deleted succesfully'
-            
-        ,200);
+            'success','url deleted succesfully');
     }
 
     public function redirect($shorten_url){
         $url = Urls::where('shorten_url',$shorten_url)->first();
 
         if(!$url){
-            return response()->json(['message'=>'url not found'],404);
+            return response()->json(['message'=>'url not found']);
         }
 
         return redirect()->away($url->original_url,302);
