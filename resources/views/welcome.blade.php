@@ -33,7 +33,7 @@
         https://tudominio.com/abc123 → https://www.ejemplo.com/pagina-larga
     </p>
 
-    <a href="{{ url('/dashboard') }}" class="btn">
+    <a href="{{ url('/index') }}" class="btn">
         Acceder al panel
     </a>
 </div>
