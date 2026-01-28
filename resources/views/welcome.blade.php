@@ -1,42 +1,63 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
     <title>Acortador de URLs</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href='/welcome.css'>
+
+    <link rel="stylesheet" href="/welcome.css">
 </head>
 <body>
 
-<div class="container">
-    <h1>Acortador de URLs</h1>
+    <div class="container">
 
-    <p>
-        Esta aplicación permite generar enlaces cortos a partir de URLs largas.
-        Al acceder a un enlace corto, el sistema redirige automáticamente
-        a la URL original asociada.
-    </p> 
+        <h1>Acortador de URLs</h1>
 
-    <p>
-        El enlace corto funciona de la siguiente manera:
-    </p>
+        <p class="subtitle">
+            Genera enlaces cortos, simples y fáciles de compartir.
+        </p>
 
-    <ul>
-        <li>Se registra una URL original</li>
-        <li>Se genera un código corto único</li>
-        <li>Se accede al dominio seguido del código</li>
-        <li>El navegador redirige a la URL original</li>
-    </ul>
+        <p>
+            Esta aplicación permite transformar URLs largas en enlaces cortos.
+            Al acceder a un enlace corto, el sistema redirige automáticamente
+            a la URL original asociada.
+        </p>
 
-    <p class="example">
-        Ejemplo:<br>
-        https://tudominio.com/abc123 → https://www.ejemplo.com/pagina-larga
-    </p>
+        <ul class="features">
+            <li>Registro de URLs originales</li>
+            <li>Generación automática de códigos únicos</li>
+            <li>Redirección inmediata</li>
+            <li>Gestión desde un panel privado</li>
+        </ul>
 
-    <a href="{{ url('/index') }}" class="btn">
-        Acceder al panel
-    </a>
-</div>
+        <p class="example">
+            Ejemplo:<br>
+            <strong>https://tudominio.com/abc123</strong> →
+            <strong>https://www.ejemplo.com/pagina-muy-larga</strong>
+        </p>
+
+        {{-- ACCIONES --}}
+        <div class="actions">
+
+            @auth
+                <a href="{{ route('dashboard') }}" class="btn primary">
+                    Ir al Dashboard
+                </a>
+            @else
+                <a href="{{ route('login') }}" class="btn primary">
+                    Iniciar sesión
+                </a>
+
+                @if (Route::has('register'))
+                    <a href="{{ route('register') }}" class="btn secondary">
+                        Registrarse
+                    </a>
+                @endif
+            @endauth
+
+        </div>
+
+    </div>
 
 </body>
 </html>
