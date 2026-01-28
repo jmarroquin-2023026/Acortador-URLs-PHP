@@ -13,13 +13,8 @@ class URLsController extends Controller
 {
      public function index()
     {
-       $urls = Urls::all();
-        if($urls->isEmpty()){
-            return response()->back()->with('error','Urls not founds',404);
-        };
-
-        return response()->back()->with('success','URLs found successfully',200);
-        
+        $urls = Urls::orderBy('id','asc')->paginate(10);
+        return view('urls.index', compact('urls'));
     }
 
     public function store(Request $request)
@@ -121,10 +116,6 @@ class URLsController extends Controller
     }
 
 
-    public function dashboard()
-    {
-        $urls = Urls::orderBy('id','asc')->paginate(10);
-        return view('dashboard', compact('urls'));
-    }
+    
 
 }

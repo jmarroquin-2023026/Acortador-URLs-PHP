@@ -7,7 +7,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', [URLsController::class, 'dashboard']);
+Route::get('/index', [URLsController::class, 'index']);
 Route::get('/show/{shorten_url}',[URLsController::class,'show']);
 Route::post('/create',[URLsController::class,'store']);
 Route::put('/update/{id}',[URLsController::class, 'update']);
