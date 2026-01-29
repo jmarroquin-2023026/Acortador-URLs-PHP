@@ -46,7 +46,7 @@ class URLsController extends Controller
 
     return view('urls.index', [
         'urls' => Urls::orderBy('id','asc')->paginate(10),
-        'searched_url' => $url // Pasamos la "tarjeta" de la URL encontrada
+        'searched_url' => $url
     ]);
     }
 
@@ -86,6 +86,20 @@ class URLsController extends Controller
     }
 
 
-    
+
+    public function metrics()
+    {
+        $urls = Urls::withCount('metrics')->get();
+
+        return view('urls.metrics', compact('urls'));
+    }
+
+    public function metricsDetails(string $shorten_url)
+    {
+        $url = Urls::where('shorten_url',$shorten_url)->with('metrics')
+        ->firstOrFail();
+
+        return view('urls.metrics-details',compact('url'));
+    }
 
 }

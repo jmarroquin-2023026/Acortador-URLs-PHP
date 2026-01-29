@@ -22,8 +22,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/show/{shorten_url}', [URLsController::class, 'show'])->name('urls.show');
     Route::put('/update/{id}', [URLsController::class, 'update'])->name('urls.update');
     Route::delete('/delete/{id}', [URLsController::class, 'destroy'])->name('urls.destroy');
+    Route::get('/metrics', [URLsController::class, 'metrics'])->name('metrics.index');
+    Route::get('/metrics/{shorten_url}', [URLsController::class, 'metricsDetails'])->name('metrics.show');
 });
 
 require __DIR__.'/auth.php';
 
 Route::get('/{shorten_url}', [URLsController::class, 'redirect'])->name('urls.redirec')->middleware('track.metrics');
+
+
