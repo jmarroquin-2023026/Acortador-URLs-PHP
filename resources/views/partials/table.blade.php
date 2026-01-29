@@ -17,7 +17,7 @@
                         <td>
                             <form action="{{ url('delete/' . $url->id) }}" method="POST" style="display:inline" class="actions">
                                 <a href="{{ url('api/' . $url->shorten_url) }}" target="_blank" class="link">
-                                    {{ url('api/' . $url->shorten_url) }}
+                                    {{ url($url->shorten_url) }}
                                 </a>
                                 @csrf
                                 @method('DELETE')
