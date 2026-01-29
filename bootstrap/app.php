@@ -12,8 +12,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        $middleware->alias([
+            'track.metrics' => \App\Http\Middleware\TrackUrlMetrics::class,
+        ]);
     })
+
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->create();
