@@ -5,6 +5,7 @@
             <img src="https://www.quickshipping.com/_assets/imgs/logos/logo_quick_shipping_logistics.png" alt="logo" style="height: 35px;">
         </a>
         <a href="/view">Mis URLs</a>
+        <a href="{{ route('metrics.index') }}">Métricas</a>
     </div>
 
     <div style="display: flex; align-items: center; gap: 15px;">

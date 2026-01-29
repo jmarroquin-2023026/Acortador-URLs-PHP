@@ -12,4 +12,11 @@ class Urls extends Model
     protected $table='urls';
 
     protected $fillable=['original_url','shorten_url'];
+
+
+    public function metrics()
+    {
+        return $this->hasMany(UrlMetric::class, 'url_id');
+    }
+
 }
