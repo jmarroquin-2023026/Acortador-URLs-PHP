@@ -16,7 +16,8 @@ class URLsController extends Controller
      public function index()
     {
         $urls = Urls::orderBy('id','asc')->paginate(10);
-        return view('urls.index', compact('urls'));
+        $searched_url = session('searched_url');
+        return view('urls.index', compact('urls','searched_url'));
     }
 
     public function store(StoreUrlRequest $request)
@@ -43,11 +44,9 @@ class URLsController extends Controller
             return redirect()->route('urls.index')
             ->with('error', 'No se encontraron coincidencias para ese código.');
     }
-
-    return view('urls.index', [
-        'urls' => Urls::orderBy('id','asc')->paginate(10),
-        'searched_url' => $url
-    ]);
+    session()->flash('searched_url', $url);
+    
+    return redirect()->route('urls.index');
     }
 
  
@@ -61,7 +60,7 @@ class URLsController extends Controller
         $url->save();
 
         return redirect()->back()->with(
-            'success','URL registrada correctamente');
+            'success','URL actualizada correctamente');
         
     }
 
@@ -72,7 +71,7 @@ class URLsController extends Controller
         $url->delete();
 
          return redirect()->back()->with(
-            'success','url deleted succesfully');
+            'success','URL eliminada correctamente');
     }
 
     public function redirect($shorten_url){
@@ -89,7 +88,7 @@ class URLsController extends Controller
 
     public function metrics()
     {
-        $urls = Urls::withCount('metrics')->get();
+        $urls = Urls::withCount('metrics')->paginate(10);
 
         return view('urls.metrics', compact('urls'));
     }
@@ -98,8 +97,8 @@ class URLsController extends Controller
     {
         $url = Urls::where('shorten_url',$shorten_url)->with('metrics')
         ->firstOrFail();
-
-        return view('urls.metrics-details',compact('url'));
+        $metrics = $url->metrics()->paginate(10);
+        return view('urls.metrics-details',compact('url','metrics'));
     }
 
 }
