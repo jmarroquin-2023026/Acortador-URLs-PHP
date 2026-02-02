@@ -1,30 +1,50 @@
-
-<table>
-    <thead>
-        <tr>
-            <th>URL original</th>
-            <th>Código corto</th>
-            <th>Total clics</th>
-            <th>Detalles</th>
-        </tr>
-    </thead>
-    <tbody>
-        @forelse ($urls as $url)
+<div class="overflow-x-auto">
+    <table class="w-full table-auto border-collapse">
+        <thead class="bg-gray-50">
             <tr>
-                <td>{{ $url->original_url }}</td>
-                <td>{{ $url->shorten_url }}</td>
-                <td>{{ $url->metrics_}}</td>
-                <td>{{ $url->metrics_count }}</td>
-                <td>
-                    <a href="{{ route('metrics.show', $url->shorten_url) }}">
-                        Ver detalles
-                    </a>
-                </td>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">
+                    URL original
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">
+                    Código corto
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">
+                    Total clics
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">
+                    Detalles
+                </th>
             </tr>
-        @empty
-            <tr>
-                <td colspan="3">No hay métricas</td>
-            </tr>
-        @endforelse
-    </tbody>
-</table>
+        </thead>
+        <tbody class="bg-white">
+            @forelse ($urls as $url)
+                <tr class="hover:bg-gray-50 border-b border-gray-200">
+                    <td class="px-6 py-4 text-sm text-gray-900 break-all">
+                        {{ $url->original_url }}
+                    </td>
+                    <td class="px-6 py-4 text-sm text-gray-900">
+                        {{ $url->shorten_url }}
+                    </td>
+                    <td class="px-6 py-4 text-sm text-gray-900">
+                        {{ $url->metrics_count }}
+                    </td>
+                    <td class="px-6 py-4">
+                        <a href="{{ route('metrics.show', $url->shorten_url) }}" 
+                           class="inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm font-medium">
+                            Ver detalles
+                        </a>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="4" class="px-6 py-12 text-center text-gray-500 border-b border-gray-200">
+                        No hay métricas
+                    </td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
+    <div class="mt-6">
+        {{ $urls->links() }}
+    </div>
+</div>
