@@ -8,6 +8,11 @@
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
+            
+            <div class="bg-white shadow-sm rounded-lg p-6 mb-6">
+                <h1 class="text-lg font-semibold mb-4">Buscar URL por código corto:</h1>
+                @include('partials.search-form')
+            </div>
             @include('partials.alerts')
 
             <div class="bg-white shadow-sm rounded-lg p-6 mb-6">
@@ -15,10 +20,6 @@
                 @include('partials.create-form')
             </div>
 
-            <div class="bg-white shadow-sm rounded-lg p-6 mb-6">
-                <h1 class="text-lg font-semibold mb-4">Buscar URL por código corto</h1>
-                @include('partials.search-form')
-            </div>
 
             <div class="bg-white shadow-sm rounded-lg p-6">
                 @include('partials.table')
