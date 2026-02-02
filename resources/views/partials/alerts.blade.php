@@ -1,26 +1,31 @@
 @if(session('success'))
-    <div class="success-message">
-        <span class="text-info">{{ session('success') }}</span>
+    <div class="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+        <span class="text-green-800">{{ session('success') }}</span>
     </div>
 @endif
 
 @if(session('error'))
-    <div class="error-message">
-        <span class="text-info">{{ session('error') }}</span>
+    <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+        <span class="text-red-800">{{ session('error') }}</span>
     </div>
 @endif
 
 @isset($searched_url)
-    <div class="card shadow-lg p-4 mb-4 bg-white rounded">
-        <h3>Resultado de la búsqueda:</h3>
-        <p>URL Original: {{ $searched_url->original_url }}</p>
-        <p>Código: {{ $searched_url->shorten_url }}</p>
+    <div class="mb-6 p-6 bg-green-50 border border-green-300 rounded-lg shadow-sm">
+        <h3 class="text-lg font-semibold text-green-900 mb-3">Url encontrada para el código: {{ $searched_url->shorten_url }}</h3>
+        <div class="space-y-2 text-green-800">
+            <p><span class="font-medium">URL Original:</span> {{ $searched_url->original_url }}</p>
+            <p><span class="font-medium">Nueva Url:</span> {{ url($searched_url->shorten_url) }}</p>
+        </div>
     </div>
 @endisset
+
 @if($errors->any())
-    <div class="error-message">
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
+    <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+        <ul class="list-disc list-inside text-red-800">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
     </div>
 @endif
