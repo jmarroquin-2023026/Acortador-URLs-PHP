@@ -5,7 +5,7 @@
     <title>Quick Link</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="https://www.quickshipping.com/_assets/imgs/logos/logo_quick_shipping_guaranty_check.png">
-    @vite(['resources/css/app.css', 'resources/js/scroll.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/scroll.js'])
 </head>
 <body class="bg-white text-gray-800">
     @include('partials.navbar')
