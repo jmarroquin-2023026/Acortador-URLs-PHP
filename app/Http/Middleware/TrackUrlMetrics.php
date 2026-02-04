@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use App\Models\Urls;
 use App\Models\UrlMetric;
+use App\Events\UrlClicked;
 use Closure;
 
 class TrackUrlMetrics
@@ -21,11 +22,22 @@ class TrackUrlMetrics
         $url= Urls::where('shorten_url',$code)->first();
         
         if($url){
-            UrlMetric::create([
+            $metric=URLMetric::create([
                 'url_id'     => $url->id,
                 'ip_address' => $request->ip(),
                 'user_agent' => $request->userAgent(),
             ]);
+
+            $totalClicks=$url->metrics()->count();
+            \Log::info('Disparando evento UrlClicked', [
+            'url_id' => $url->id,
+            'total_clicks' => $totalClicks
+        ]);
+            event(new UrlClicked(
+    $url->id,
+    $metric,
+    $totalClicks
+));
         }
         return $next($request);
     }

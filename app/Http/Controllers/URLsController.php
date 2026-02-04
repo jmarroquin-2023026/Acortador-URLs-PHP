@@ -97,7 +97,7 @@ class URLsController extends Controller
     {
         $url = Urls::where('shorten_url',$shorten_url)->with('metrics')
         ->firstOrFail();
-        $metrics = $url->metrics()->paginate(10);
+        $metrics = $url->metrics()->latest()->paginate(10);
         return view('urls.metrics-details',compact('url','metrics'));
     }
 
