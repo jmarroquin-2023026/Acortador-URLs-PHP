@@ -1,5 +1,8 @@
 <h2 class="text-lg font-semibold mb-4">Historial de Accesos</h2>
-
+<div class="py-6">
+    <span>Filtros de exportación</span>
+    @include('partials.export-form')
+</div>
 <div id="metrics-container">
     @if ($metrics->isEmpty())
         <p id="no-metrics-message" class="text-center text-gray-500 py-12">No hay métricas registradas.</p>

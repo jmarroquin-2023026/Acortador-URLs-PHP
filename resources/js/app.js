@@ -5,6 +5,7 @@ import Pusher from 'pusher-js';
 import Alpine from 'alpinejs';
 import './metrics-realtime'; // Ejecuta el registro de initMetricsRealtime
 import './metrics-init';
+import { verifyCalendar } from './calendar';
 
 window.Alpine = Alpine;
 
@@ -23,3 +24,4 @@ window.Echo = new Echo({
 });
 
 
+window.verifyCalendar=verifyCalendar;
