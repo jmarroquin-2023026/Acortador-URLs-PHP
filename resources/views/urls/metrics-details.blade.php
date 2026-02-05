@@ -14,7 +14,8 @@
                         <span class="font-medium">Código Corto:</span> {{ $url->shorten_url }}
                     </p>
                     <p class="text-sm text-gray-600">
-                        <span class="font-medium">Total de Clics:</span> {{ $metrics->total() }}
+                        <span class="font-medium">Total de Clics:</span> 
+                        <span id="total-clicks">{{$metrics->total()}}</span>
                     </p>
                 </div>
             </div>
@@ -24,4 +25,21 @@
             </div>
         </div>
     </div>
+   @push('scripts')
+<script>
+    (function() {
+        const urlId = @json($url->id);
+        
+        function checkAndInit() {
+            if (typeof window.initMetricsWhenReady === 'function') {
+                window.initMetricsWhenReady(urlId);
+            } else {
+                setTimeout(checkAndInit, 50);
+            }
+        }
+        checkAndInit();
+    })();
+</script>
+@endpush
+
 </x-app-layout>

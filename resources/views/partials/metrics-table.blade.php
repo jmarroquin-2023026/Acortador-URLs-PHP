@@ -26,7 +26,9 @@
                         {{ $url->shorten_url }}
                     </td>
                     <td class="px-6 py-4 text-sm text-gray-900">
-                        {{ $url->metrics_count }}
+                       <span id="total-clicks-{{ $url->id }}">
+                            {{ $url->metrics_count }}
+                        </span>
                     </td>
                     <td class="px-6 py-4">
                         <a href="{{ route('metrics.show', $url->shorten_url) }}" 
@@ -44,6 +46,21 @@
             @endforelse
         </tbody>
     </table>
+    @push('scripts')
+        <script>
+            (function() {
+                const urlIds = @json($urls->pluck('id'));
+                function starter() {
+                    if (typeof window.initAllUrlsRealtime === 'function') {
+                        window.initAllUrlsRealtime(urlIds);
+                    } else {
+                        setTimeout(starter, 50);
+                    }
+                }
+                starter();
+            })();
+        </script>
+        @endpush
     <div class="mt-6">
         {{ $urls->links() }}
     </div>

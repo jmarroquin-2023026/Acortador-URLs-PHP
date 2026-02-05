@@ -1,9 +1,11 @@
 <h2 class="text-lg font-semibold mb-4">Historial de Accesos</h2>
 
-@if ($metrics->isEmpty())
-    <p class="text-center text-gray-500 py-12">No hay métricas registradas.</p>
-@else
-    <div class="overflow-x-auto">
+<div id="metrics-container">
+    @if ($metrics->isEmpty())
+        <p id="no-metrics-message" class="text-center text-gray-500 py-12">No hay métricas registradas.</p>
+    @endif
+
+    <div class="overflow-x-auto {{ $metrics->isEmpty() ? 'hidden' : '' }}" id="table-wrapper">
         <table class="w-full table-auto border-collapse">
             <thead class="bg-gray-50">
                 <tr>
@@ -18,7 +20,7 @@
                     </th>
                 </tr>
             </thead>
-            <tbody class="bg-white">
+            <tbody id="metrics-detail-tbody" class="bg-white">
                 @foreach ($metrics as $metric)
                     <tr class="hover:bg-gray-50 border-b border-gray-200">
                         <td class="px-6 py-4 text-sm text-gray-900">
@@ -35,8 +37,8 @@
             </tbody>
         </table>
     </div>
+</div>
 
-    <div class="mt-6">
-        {{ $metrics->links() }}
-    </div>
-@endif
+<div class="mt-6">
+    {{ $metrics->links() }}
+</div>
