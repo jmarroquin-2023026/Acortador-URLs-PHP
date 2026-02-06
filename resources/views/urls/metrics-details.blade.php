@@ -23,7 +23,6 @@
             <div class="bg-white shadow-sm rounded-lg p-6">
                 @include('partials.metric-detail-table')
             </div>
-            
         </div>
     </div>
    @push('scripts')
