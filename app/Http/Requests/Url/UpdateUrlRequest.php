@@ -23,13 +23,13 @@ class UpdateUrlRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'original_url'=>[
+            'original_url' => [
                 'required',
                 'url',
-                Rule::unique('urls','original_url')->ignore(
+                Rule::unique('urls', 'original_url')->ignore(
                     $this->route('id')
-                )
-            ]
+                ),
+            ],
         ];
     }
 

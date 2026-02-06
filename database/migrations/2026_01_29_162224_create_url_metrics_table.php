@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('url_metrics', function (Blueprint $table) {
             $table->id();
             $table->foreignId('url_id')->constrained()->onDelete('cascade');
-            $table->string('ip_address',45);
+            $table->string('ip_address', 45);
             $table->text('user_agent');
             $table->timestamps();
         });

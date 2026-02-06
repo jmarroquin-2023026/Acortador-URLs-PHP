@@ -21,7 +21,7 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->render(function (MethodNotAllowedHttpException $e, $request) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException;
         });
     })
     ->create();

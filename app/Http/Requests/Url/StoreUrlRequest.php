@@ -22,11 +22,11 @@ class StoreUrlRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'original_url'=>[
+            'original_url' => [
                 'required',
                 'url',
-                'unique:urls,original_url'
-            ]
+                'unique:urls,original_url',
+            ],
         ];
     }
 
@@ -37,5 +37,5 @@ class StoreUrlRequest extends FormRequest
             'original_url.url' => 'Debe ingresar una URL válida',
             'original_url.unique' => 'Esta URL ya fue registrada',
         ];
-    }   
+    }
 }

@@ -1,9 +1,8 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Middleware\TrackUrlMetrics;
-use App\Http\Controllers\URLsController;
 use App\Http\Controllers\MetricExportController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\URLsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -31,8 +30,6 @@ require __DIR__.'/auth.php';
 
 Route::get('/{shorten_url}', [URLsController::class, 'redirect'])->name('urls.redirec')->middleware('track.metrics');
 
-
 Route::post('/metrics/{url}/export', [MetricExportController::class, 'export'])
     ->middleware('auth')
     ->name('metrics.export');
-
