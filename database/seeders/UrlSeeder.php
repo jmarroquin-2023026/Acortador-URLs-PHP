@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class UrlSeeder extends Seeder
@@ -15,8 +14,8 @@ class UrlSeeder extends Seeder
     public function run(): void
     {
         DB::table('urls')->insert([
-            'original_url'=>'https://'.Str::random(10).'.com',
-            'shorten_url'=>Str::random(6)
+            'original_url' => 'https://'.Str::random(10).'.com',
+            'shorten_url' => Str::random(6),
         ]);
     }
 }

@@ -125,9 +125,7 @@ return [
 
     'timezone' => 'America/Guatemala',
 
-    
     'locale' => 'es',
     'fallback_locale' => 'en',
-
 
 ];

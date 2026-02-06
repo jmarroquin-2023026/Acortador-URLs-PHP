@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UrlMetric extends Model
 {
-    protected $fillable=[
+    protected $fillable = [
         'url_id',
         'ip_address',
         'user_agent',

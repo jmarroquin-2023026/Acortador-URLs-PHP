@@ -2,18 +2,20 @@
 
 namespace App\Events;
 
+use App\Models\UrlMetric;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\UrlMetric;
 
 class UrlClicked implements ShouldBroadcast
 {
     use Dispatchable, SerializesModels;
 
     public int $urlId;
+
     public int $totalClicks;
+
     public array $metric;
 
     public function __construct(int $urlId, UrlMetric $metric, int $totalClicks)
@@ -29,7 +31,7 @@ class UrlClicked implements ShouldBroadcast
 
     public function broadcastOn(): Channel
     {
-        return new Channel('url-metrics.' . $this->urlId);
+        return new Channel('url-metrics.'.$this->urlId);
     }
 
     public function broadcastAs(): string
@@ -38,10 +40,10 @@ class UrlClicked implements ShouldBroadcast
     }
 
     public function broadcastWith(): array
-{
-    return [
-        'metric' => $this->metric,
-        'total_clicks' => $this->totalClicks,
-    ];
-}
+    {
+        return [
+            'metric' => $this->metric,
+            'total_clicks' => $this->totalClicks,
+        ];
+    }
 }
