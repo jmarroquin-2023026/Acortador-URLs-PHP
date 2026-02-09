@@ -25,7 +25,8 @@ class UrlClicked implements ShouldBroadcast
         $this->metric = [
             'ip_address' => $metric->ip_address,
             'user_agent' => $metric->user_agent,
-            'created_at' => $metric->created_at->format('d/m/Y H:i'),
+            'created_at' => $metric->created_at->toIso8601String(),
+            'created_at_formatted' => $metric->created_at->format('d/m/Y H:i'),
         ];
     }
 
