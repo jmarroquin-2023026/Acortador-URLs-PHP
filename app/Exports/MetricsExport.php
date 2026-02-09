@@ -21,8 +21,8 @@ class MetricsExport implements FromCollection, WithHeadings
             ->whereBetween('created_at', [$this->from, $this->to])
             ->orderBy('created_at', 'desc')
             ->get()
-            ->map(function($metric){
-                return[
+            ->map(function ($metric) {
+                return [
                     $metric->ip_address,
                     $metric->user_agent,
                     $metric->created_at->format('d-m-y H:i'),
