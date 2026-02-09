@@ -19,9 +19,15 @@ class MetricsExport implements FromCollection, WithHeadings
     {
         return UrlMetric::where('url_id', $this->urlId)
             ->whereBetween('created_at', [$this->from, $this->to])
-            ->select('ip_address', 'user_agent', 'created_at')
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->get()
+            ->map(function ($metric) {
+                return [
+                    $metric->ip_address,
+                    $metric->user_agent,
+                    $metric->created_at->format('d-m-y H:i'),
+                ];
+            });
     }
 
     public function headings(): array
