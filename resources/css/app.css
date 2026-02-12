@@ -1,11 +1,19 @@
-@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+/* Cambiar todos los botones de paginación a blanco */
+nav[role="navigation"] a,
+nav[role="navigation"] span {
+    background-color: white !important;
+    color: #374151 !important;
+    border-color: #d1d5db !important;
+}
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+/* Página activa con ligero borde azul */
+nav[role="navigation"] span[aria-current="page"] {
+    background-color: white !important;
+    color: #2563eb !important;
+    border-color: #2563eb !important;
+    font-weight: 600 !important;
 }

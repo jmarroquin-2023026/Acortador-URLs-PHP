@@ -2,129 +2,97 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\Url\StoreUrlRequest;
+use App\Http\Requests\Url\UpdateUrlRequest;
 use App\Models\Urls;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use App\Http\Controllers\Controller;
-
 
 class URLsController extends Controller
 {
-     public function index()
+    public function index()
     {
-       $urls = Urls::all();
-        if($urls->isEmpty()){
-            return response()->back()->with('error','Urls not founds',404);
-        };
+        $urls = Urls::orderBy('id', 'asc')->paginate(10);
+        $searched_url = session('searched_url');
 
-        return response()->back()->with('success','URLs found successfully',200);
-        
+        return view('urls.index', compact('urls', 'searched_url'));
     }
 
-    public function store(Request $request)
+    public function store(StoreUrlRequest $request)
     {
-        $validator= Validator::make($request->all(),[
-            'original_url' =>'required|url'
-         ]);
-
-         if($validator->fails()){
-             return redirect()->back()->with('error','All fields should be completed');
-         }
-
-        do{
+        do {
             $code = Str::random(6);
-        }while(Urls::where('shorten_url',$code)->exists());
+        } while (Urls::where('shorten_url', $code)->exists());
 
-         $url= Urls::create([
-            'original_url'=>$request->original_url,
-            'shorten_url'=> $code
-         ]);
-
-         if(!$url){
-            return redirect()->back()->with('error','Error creating register');
-         }
+        $url = Urls::create([
+            'original_url' => $request->original_url,
+            'shorten_url' => $code,
+        ]);
 
         return redirect()->back()->with(
-            'success','url saved succesfully');
-
+            'success', 'URL registrada correctamente');
     }
-
 
     public function show($shorten_url)
     {
 
-        $url = Urls::where('shorten_url',$shorten_url)->first();
+        $url = Urls::where('shorten_url', $shorten_url)->first();
 
-        if(!$url){
-            return redirect()->back()->with('error','URL not found');
+        if (! $url) {
+            return redirect()->route('urls.index')
+                ->with('error', 'No se encontraron coincidencias para ese código.');
         }
-        return redirect()->to(
-            $url->original_url);
+        session()->flash('searched_url', $url);
+
+        return redirect()->route('urls.index');
     }
 
- 
-
-    public function update(Request $request, $id)
+    public function update(UpdateUrlRequest $request, $id)
     {
         $url = Urls::find($id);
 
-        if(!$url){
-            return redirect()->back()->with('error','url not found');
-        }
-
-        $validator= Validator::make($request->all(),[
-            'original_url' =>'required|url'
-        ]);
-
-        if($validator->fails()){
-             return redirect()->back()->with('error','All fields should be completed');
-        }
-
-        do{
-            $code = Str::random(6);
-        }while(Urls::where('shorten_url',$code)->exists());
-
-
-        $url->original_url=$request->original_url;
-        $url->shorten_url=$code;
+        $url->original_url = $request->original_url;
 
         $url->save();
 
         return redirect()->back()->with(
-            'success','url updated succesfully');
-        
+            'success', 'URL actualizada correctamente');
+
     }
 
     public function destroy($id)
     {
-        $url = Urls::find($id);
-        
-        if(!$url){
-            return redirect()->back()->with('error','url not found');
-        }
+        $url = Urls::findOrFail($id);
 
         $url->delete();
 
-         return redirect()->back()->with(
-            'success','url deleted succesfully');
+        return redirect()->back()->with(
+            'success', 'URL eliminada correctamente');
     }
 
-    public function redirect($shorten_url){
-        $url = Urls::where('shorten_url',$shorten_url)->first();
+    public function redirect($shorten_url)
+    {
+        $url = Urls::where('shorten_url', $shorten_url)->firstOrFail();
 
-        if(!$url){
-            return response()->json(['message'=>'url not found']);
+        if (! $url) {
+            return response()->json(['message' => 'url not found']);
         }
 
-        return redirect()->away($url->original_url,302);
+        return redirect()->away($url->original_url, 302);
     }
 
-
-    public function dashboard()
+    public function metrics()
     {
-        $urls = Urls::orderBy('id','asc')->paginate(10);
-        return view('dashboard', compact('urls'));
+        $urls = Urls::withCount('metrics')->paginate(10);
+
+        return view('urls.metrics', compact('urls'));
     }
 
+    public function metricsDetails(string $shorten_url)
+    {
+        $url = Urls::where('shorten_url', $shorten_url)->with('metrics')
+            ->firstOrFail();
+        $metrics = $url->metrics()->latest()->paginate(10);
+
+        return view('urls.metrics-details', compact('url', 'metrics'));
+    }
 }

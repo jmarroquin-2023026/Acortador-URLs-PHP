@@ -123,4 +123,9 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'timezone' => 'America/Guatemala',
+
+    'locale' => 'es',
+    'fallback_locale' => 'en',
+
 ];
